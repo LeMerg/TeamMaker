@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Maker</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0f1117;
+      --bg-2:        #181c25;
+      --bg-3:        #1e2330;
+      --border:      rgba(255,255,255,0.08);
+      --text:        #e8eaf0;
+      --text-muted:  #7a7f94;
+      --accent-blue: #4d8ef5;
+      --accent-gold: #c89b3c;
+      --accent-red:  #e05252;
+      --font:        system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── Fond animé ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 20%, rgba(77,142,245,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(200,155,60,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15,17,23,0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-icon { font-size: 22px; }
+    .nav-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+    .nav-sub {
+      font-size: 10px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      gap: 2rem;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-gold);
+      background: rgba(200,155,60,0.1);
+      border: 1px solid rgba(200,155,60,0.25);
+      border-radius: 999px;
+      padding: 5px 14px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      max-width: 700px;
+    }
+    .hero-title span {
+      background: linear-gradient(90deg, var(--accent-blue), #7ab4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font);
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(77,142,245,0.3);
+    }
+    .btn-primary:hover {
+      background: #3b7de8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(77,142,245,0.4);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+
+    /* ── Cards outils ── */
+    .tools-section {
+      padding: 0 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .tool-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-blue), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .tool-card:hover {
+      border-color: rgba(77,142,245,0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .tool-card:hover::before { opacity: 1; }
+
+    .tool-icon {
+      font-size: 28px;
+      width: 48px; height: 48px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tool-name {
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .tool-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .tool-cta {
+      font-size: 12px;
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: auto;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 2.5rem;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.16); border-radius: 10px; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.25rem; }
+      .hero { padding: 3rem 1.25rem 3rem; }
+      .tools-section { padding: 0 1.25rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-brand" href="index.html">
+      <span class="nav-icon">⚔️</span>
+      <div>
+        <div class="nav-title">Team Maker</div>
+        <div class="nav-sub">Pour vos soirées entre amis</div>
+      </div>
+    </a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="hero-eyebrow">
+      <i class="ti ti-shield-half"></i>
+      Outils pour tes soirées
+    </span>
+
+    <h1 class="hero-title">
+      Génère des équipes<br><span>équilibrées</span> en un clic
+    </h1>
+
+    <p class="hero-desc">
+      Team Maker répartit automatiquement tes joueurs en deux équipes aussi équilibrées que possible selon leur rang — plus de disputes pour savoir qui joue avec qui.
+    </p>
+
+  </section>
+
+  <!-- Outils -->
+  <section class="tools-section">
+    <p class="section-label">Outils disponibles</p>
+    <div class="tools-grid">
+
+      <a class="tool-card" href="TeamLol.html">
+        <div class="tool-icon">⚔️</div>
+        <div class="tool-name">Team Maker — LoL</div>
+        <p class="tool-desc">
+          Ajoute jusqu'à 10 joueurs avec leur rang, et l'algorithme trouve la répartition la plus équitable possible. Supporte les rôles aléatoires et les joueurs enregistrés.
+        </p>
+        <span class="tool-cta">
+          Ouvrir <i class="ti ti-arrow-right"></i>
+        </span>
+      </a>
+
+      <a class="tool-card" href="TeamValo.html">
+        <div class="tool-icon">🎯</div>
+        <div class="tool-name">Team Maker — Valorant</div>
+        <p class="tool-desc">
+          Même principe pour Valorant — rangs Iron à Radiant, rôles Duelist · Initiator · Controller · Sentinel assignés aléatoirement, joueurs enregistrés persistants.
+        </p>
+        <span class="tool-cta">
+          Ouvrir <i class="ti ti-arrow-right"></i>
+        </span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    Team Maker — Fait pour les soirées entre amis ⚔️
+  </footer>
+
+</div>
+</body>
+</html>
