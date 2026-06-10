@@ -25,72 +25,25 @@
       --font:         system-ui, -apple-system, 'Segoe UI', sans-serif;
     }
 
-    html, body {
-      height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 14px;
-      line-height: 1.5;
-    }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.5; }
 
-    .page {
-      display: grid;
-      grid-template-columns: 290px 1fr 260px;
-      height: 100vh;
-      overflow: hidden;
-    }
+    .page { display: grid; grid-template-columns: 290px 1fr 260px; height: 100vh; overflow: hidden; }
 
-    .sidebar-left {
-      background: var(--bg-2);
-      border-right: 1px solid var(--border);
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
+    .sidebar-left  { background: var(--bg-2); border-right: 1px solid var(--border); overflow-y: auto; overflow-x: hidden; }
+    .main-content  { overflow-y: auto; padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .sidebar-right { background: var(--bg-2); border-left: 1px solid var(--border); overflow-y: auto; overflow-x: hidden; }
 
-    .main-content {
-      overflow-y: auto;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar-right {
-      background: var(--bg-2);
-      border-left: 1px solid var(--border);
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    .sidebar-inner {
-      padding: 1.5rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
+    .sidebar-inner { padding: 1.5rem 1.25rem; display: flex; flex-direction: column; gap: 1.25rem; }
 
     .brand { display: flex; align-items: center; gap: 10px; }
     .brand-icon { font-size: 26px; line-height: 1; }
     .brand h1 { font-size: 16px; font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
     .brand p  { font-size: 10px; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 1px; }
 
-    .field-label {
-      font-size: 10px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--text-muted);
-      display: flex; align-items: center; gap: 8px; margin-bottom: 7px;
-    }
-    .count-badge {
-      font-size: 10px; font-weight: 500; text-transform: none; letter-spacing: 0;
-      background: var(--bg-3); color: var(--text-muted);
-      border-radius: 20px; padding: 1px 8px;
-    }
+    .field-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+    .count-badge { font-size: 10px; font-weight: 500; text-transform: none; letter-spacing: 0; background: var(--bg-3); color: var(--text-muted); border-radius: 20px; padding: 1px 8px; }
 
-    input[type=text], select {
-      background: var(--bg-3); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); color: var(--text);
-      padding: 8px 10px; font-size: 13px; font-family: var(--font);
-      outline: none; transition: border-color 0.15s; width: 100%;
-    }
+    input[type=text], select { background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); padding: 8px 10px; font-size: 13px; font-family: var(--font); outline: none; transition: border-color 0.15s; width: 100%; }
     input[type=text]::placeholder { color: var(--text-muted); }
     input[type=text]:focus, select:focus { border-color: var(--accent-blue); }
     select { cursor: pointer; }
@@ -99,89 +52,45 @@
     .player-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
     .player-row { display: grid; grid-template-columns: 1fr 115px 28px 28px; gap: 6px; align-items: center; }
 
-    .remove-btn {
-      background: none; border: none; cursor: pointer;
-      color: var(--text-muted); font-size: 16px;
-      padding: 0; width: 28px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-sm); transition: background 0.15s, color 0.15s;
-    }
+    .remove-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 16px; padding: 0; width: 28px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); transition: background 0.15s, color 0.15s; }
     .remove-btn:hover { background: rgba(224,82,82,0.15); color: var(--accent-red); }
 
-    .pin-btn {
-      background: none; border: none; cursor: pointer;
-      color: var(--text-muted); font-size: 15px;
-      padding: 0; width: 28px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-sm); transition: background 0.15s, color 0.15s;
-    }
+    .pin-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 15px; padding: 0; width: 28px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); transition: background 0.15s, color 0.15s; }
     .pin-btn:hover { background: rgba(200,155,60,0.15); color: var(--accent-gold); }
     .pin-btn.pinned { color: var(--accent-gold); cursor: default; }
     .pin-btn.pinned:hover { background: none; }
 
-    .toggle-row {
-      display: flex; gap: 10px; align-items: flex-start;
-      background: var(--bg-3); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 10px 12px;
-    }
-    .toggle-row input[type=checkbox] {
-      width: 15px; height: 15px; margin-top: 2px;
-      flex-shrink: 0; cursor: pointer; accent-color: var(--accent-blue);
-    }
+    .toggle-row { display: flex; gap: 10px; align-items: flex-start; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 10px 12px; }
+    .toggle-row input[type=checkbox] { width: 15px; height: 15px; margin-top: 2px; flex-shrink: 0; cursor: pointer; accent-color: var(--accent-blue); }
     .toggle-row label { cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
     .toggle-title { font-size: 13px; color: var(--text); font-weight: 500; }
     .toggle-sub   { font-size: 11px; color: var(--text-muted); }
 
-    .btn-primary {
-      background: var(--accent-blue); color: #fff; border: none;
-      border-radius: var(--radius-md); padding: 10px 16px;
-      font-size: 14px; font-weight: 500; cursor: pointer; width: 100%;
-      display: flex; align-items: center; justify-content: center; gap: 7px;
-      font-family: var(--font); transition: background 0.15s, transform 0.1s;
-    }
+    .btn-primary { background: var(--accent-blue); color: #fff; border: none; border-radius: var(--radius-md); padding: 10px 16px; font-size: 14px; font-weight: 500; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 7px; font-family: var(--font); transition: background 0.15s, transform 0.1s; }
     .btn-primary:hover  { background: #e03040; }
     .btn-primary:active { transform: scale(0.98); }
     .btn-primary.sm { padding: 7px 12px; font-size: 13px; width: auto; }
 
-    .btn-ghost {
-      background: transparent; color: var(--text-muted);
-      border: 1px solid var(--border); border-radius: var(--radius-sm);
-      padding: 7px 12px; font-size: 13px; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 5px;
-      font-family: var(--font); transition: background 0.15s, color 0.15s, border-color 0.15s;
-    }
+    .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 12px; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-family: var(--font); transition: background 0.15s, color 0.15s, border-color 0.15s; }
     .btn-ghost:hover { background: var(--bg-3); color: var(--text); border-color: var(--border-hover); }
     .btn-ghost:disabled { opacity: 0.35; cursor: not-allowed; }
     .btn-ghost.sm { padding: 5px 10px; font-size: 12px; }
     .btn-ghost.xs { padding: 3px 8px; font-size: 11px; }
 
-    .error-msg {
-      display: none; font-size: 12px; color: #f07070;
-      background: rgba(224,82,82,0.1); border: 1px solid rgba(224,82,82,0.25);
-      border-radius: var(--radius-sm); padding: 8px 10px;
-    }
+    .error-msg { display: none; font-size: 12px; color: #f07070; background: rgba(224,82,82,0.1); border: 1px solid rgba(224,82,82,0.25); border-radius: var(--radius-sm); padding: 8px 10px; }
 
-    .result-placeholder {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      color: var(--text-muted); gap: 14px; text-align: center; opacity: 0.4;
-    }
+    /* placeholder sans flex:1 pour ne pas pousser la roulette */
+    .result-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); gap: 14px; text-align: center; opacity: 0.4; padding: 2rem 0; }
     .placeholder-icon { font-size: 52px; }
     .result-placeholder p { font-size: 14px; line-height: 1.9; }
 
     .result { display: none; flex-direction: column; gap: 1.25rem; }
-    .result-header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-bottom: 1rem; border-bottom: 1px solid var(--border);
-    }
+    .result-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
     .result-header h2 { font-size: 18px; font-weight: 600; }
 
     .teams-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-    .team-card {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: 1.25rem; border-top-width: 3px;
-    }
+    .team-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; border-top-width: 3px; }
     .team-card.blue { border-top-color: var(--accent-blue); }
     .team-card.red  { border-top-color: var(--accent-red); }
 
@@ -189,10 +98,7 @@
     .team-avg  { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
 
     .team-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .team-list li {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 13px; padding: 5px 0; border-bottom: 1px solid var(--border);
-    }
+    .team-list li { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 5px 0; border-bottom: 1px solid var(--border); }
     .team-list li:last-child { border-bottom: none; }
     .player-name { color: var(--text); }
     .player-meta { display: flex; gap: 5px; align-items: center; }
@@ -201,7 +107,6 @@
     .diff-row strong { color: var(--text); }
 
     .badge { border-radius: 4px; padding: 2px 7px; font-size: 11px; font-weight: 500; white-space: nowrap; }
-    /* ── Ranks Valorant ── */
     .rank-debutant   { background: rgba(100,100,100,0.25); color: #aaa; }
     .rank-iron       { background: rgba(160,140,120,0.25); color: #c0b090; }
     .rank-bronze     { background: rgba(180,100,60,0.25);  color: #d4835a; }
@@ -212,94 +117,93 @@
     .rank-ascendant  { background: rgba(60,200,120,0.25);  color: #50e890; }
     .rank-immortal   { background: rgba(200,60,100,0.25);  color: #f06080; }
     .rank-radiant    { background: rgba(255,180,50,0.3);   color: #ffd166; border: 1px solid rgba(255,200,80,0.5); }
+    .rank-ascendant, .rank-immortal, .rank-radiant { box-shadow: 0 0 8px rgba(255,100,100,0.25); }
 
-    .rank-ascendant, .rank-immortal, .rank-radiant {
-      box-shadow: 0 0 8px rgba(255,100,100,0.25);
-    }
-
-    /* ── Rôles Valorant ── */
-    .role-duelist, .role-initiator, .role-controller, .role-sentinel {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
-      color: var(--text-muted); font-weight: 500; font-size: 10px; opacity: 0.85;
-    }
+    .role-duelist, .role-initiator, .role-controller, .role-sentinel { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); color: var(--text-muted); font-weight: 500; font-size: 10px; opacity: 0.85; }
     .role-duelist:hover    { color: #ff6070; border-color: rgba(255,96,112,0.3); }
     .role-initiator:hover  { color: #70c8f0; }
     .role-controller:hover { color: #a878ee; }
     .role-sentinel:hover   { color: #f0c050; }
 
-    .saved-header {
-      display: flex; align-items: center;
-      justify-content: space-between; margin-bottom: 0;
-    }
+    .saved-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
     .saved-header .field-label { margin-bottom: 0; }
-
     .saved-list { display: flex; flex-direction: column; gap: 5px; }
     .saved-empty { font-size: 12px; color: var(--text-muted); text-align: center; padding: 1rem 0; line-height: 1.8; }
 
-    .saved-row {
-      display: flex; align-items: center; justify-content: space-between;
-      background: var(--bg-3); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); padding: 8px 10px; gap: 8px;
-      transition: border-color 0.15s;
-    }
+    .saved-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px; gap: 8px; transition: border-color 0.15s; }
     .saved-row:hover { border-color: var(--border-hover); }
     .saved-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-    .saved-name {
-      font-size: 13px; color: var(--text);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
+    .saved-name { font-size: 13px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .saved-actions { display: flex; gap: 4px; flex-shrink: 0; }
 
-    .btn-add {
-      background: rgba(77,142,245,0.15); border: 1px solid rgba(77,142,245,0.3);
-      color: var(--accent-blue); border-radius: var(--radius-sm);
-      width: 28px; height: 28px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px; transition: background 0.15s;
-    }
+    .btn-add { background: rgba(77,142,245,0.15); border: 1px solid rgba(77,142,245,0.3); color: var(--accent-blue); border-radius: var(--radius-sm); width: 28px; height: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px; transition: background 0.15s; }
     .btn-add:hover:not(:disabled) { background: rgba(77,142,245,0.3); }
-    .btn-add.added {
-      background: rgba(60,180,100,0.15); border-color: rgba(60,180,100,0.3);
-      color: #50c870; cursor: default;
-    }
+    .btn-add.added { background: rgba(60,180,100,0.15); border-color: rgba(60,180,100,0.3); color: #50c870; cursor: default; }
 
-    .btn-del {
-      background: none; border: 1px solid transparent; color: var(--text-muted);
-      border-radius: var(--radius-sm); width: 28px; height: 28px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; transition: background 0.15s, color 0.15s;
-    }
+    .btn-del { background: none; border: 1px solid transparent; color: var(--text-muted); border-radius: var(--radius-sm); width: 28px; height: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: background 0.15s, color 0.15s; }
     .btn-del:hover { background: rgba(224,82,82,0.15); color: var(--accent-red); border-color: rgba(224,82,82,0.25); }
 
-    .add-saved-form {
-      display: none; flex-direction: column; gap: 7px;
-      background: var(--bg-3); border: 1px solid var(--border-hover);
-      border-radius: var(--radius-md); padding: 12px;
-    }
+    .add-saved-form { display: none; flex-direction: column; gap: 7px; background: var(--bg-3); border: 1px solid var(--border-hover); border-radius: var(--radius-md); padding: 12px; }
     .add-saved-actions { display: flex; gap: 6px; justify-content: flex-end; }
 
-    .edit-saved-form {
-      display: none; flex-direction: column; gap: 7px;
-      background: var(--bg); border: 1px solid var(--border-hover);
-      border-radius: var(--radius-md); padding: 10px; margin-top: 4px;
-    }
+    .edit-saved-form { display: none; flex-direction: column; gap: 7px; background: var(--bg); border: 1px solid var(--border-hover); border-radius: var(--radius-md); padding: 10px; margin-top: 4px; }
     .edit-saved-actions { display: flex; gap: 6px; justify-content: flex-end; }
 
-    /* Storage status */
-    .storage-status {
-      font-size: 10px; color: var(--text-muted);
-      display: flex; align-items: center; gap: 5px;
-    }
-    .storage-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #50c870; flex-shrink: 0; transition: background 0.3s;
-    }
-    .storage-dot.saving { background: var(--accent-gold); animation: pulse 0.6s ease-in-out infinite alternate; }
-    .storage-dot.error  { background: var(--accent-red); }
+    .storage-status { font-size: 10px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
+    .storage-dot { width: 6px; height: 6px; border-radius: 50%; background: #50c870; flex-shrink: 0; transition: background 0.3s; }
+    .storage-dot.error { background: var(--accent-red); }
     @keyframes pulse { from { opacity: 1; } to { opacity: 0.3; } }
 
-    .divider { height: 1px; background: var(--border); margin: 0; }
+    .divider { height: 1px; background: var(--border); }
     .team-score { font-size: 12px; font-weight: 500; color: var(--text-muted); margin-left: 6px; }
+
+    /* ══ MAP ROULETTE ══ */
+    .map-roulette-section { display: flex; flex-direction: column; gap: 10px; }
+
+    .roulette-window {
+      position: relative; width: 100%; height: 180px;
+      border-radius: var(--radius-md); overflow: hidden;
+      border: 1px solid var(--border); background: var(--bg); cursor: pointer;
+    }
+    .roulette-strip { display: flex; flex-direction: row; height: 100%; will-change: transform; }
+    .roulette-item { flex-shrink: 0; width: 280px; height: 180px; position: relative; overflow: hidden; }
+    .roulette-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .roulette-item-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 6px 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%);
+      font-size: 12px; font-weight: 700; color: #fff;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    .roulette-indicator {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      transform: translateX(-50%); width: 3px;
+      background: var(--accent-blue); box-shadow: 0 0 12px rgba(255,70,85,0.7);
+      z-index: 10; pointer-events: none;
+    }
+    .roulette-indicator::before, .roulette-indicator::after {
+      content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 0; height: 0;
+    }
+    .roulette-indicator::before { top: -1px; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 8px solid var(--accent-blue); }
+    .roulette-indicator::after  { bottom: -1px; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 8px solid var(--accent-blue); }
+
+    .roulette-fade-left, .roulette-fade-right { position: absolute; top: 0; bottom: 0; width: 80px; z-index: 5; pointer-events: none; }
+    .roulette-fade-left  { left:  0; background: linear-gradient(to right, rgba(15,17,23,0.92), transparent); }
+    .roulette-fade-right { right: 0; background: linear-gradient(to left,  rgba(15,17,23,0.92), transparent); }
+
+    .map-result-card {
+      display: none; align-items: center; gap: 14px;
+      background: var(--bg-3); border: 1px solid var(--border-hover);
+      border-radius: var(--radius-md); padding: 12px;
+      animation: fadeInUp 0.4s ease;
+    }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .map-result-card.visible { display: flex; }
+    .map-result-thumb { width: 110px; height: 66px; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; border: 1px solid var(--border-hover); }
+    .map-result-info { display: flex; flex-direction: column; gap: 3px; }
+    .map-result-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; }
+    .map-result-name  { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; }
 
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -311,6 +215,7 @@
       .main-content { padding: 1.25rem; }
       .teams-grid { grid-template-columns: 1fr; }
       .player-row { grid-template-columns: 1fr 110px 28px 28px; }
+      .roulette-item { width: 200px; }
     }
   </style>
 </head>
@@ -368,10 +273,14 @@
 
   <!-- ══ CENTRE ══ -->
   <main class="main-content">
+
+    <!-- Placeholder (avant génération) -->
     <div class="result-placeholder" id="placeholder">
       <i class="ti ti-sword placeholder-icon"></i>
       <p>Configure ta partie à gauche,<br>ajoute tes joueurs et génère les équipes.</p>
     </div>
+
+    <!-- Résultat équipes -->
     <div class="result" id="result">
       <div class="result-header">
         <h2 id="sessionTitle"></h2>
@@ -382,6 +291,40 @@
       <div class="teams-grid" id="teamsGrid"></div>
       <p class="diff-row" id="diffRow"></p>
     </div>
+
+    <!-- ══ MAP ALÉATOIRE — toujours visible ══ -->
+    <div class="divider"></div>
+    <div class="map-roulette-section">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+        <p class="field-label" style="margin-bottom:0">
+          <i class="ti ti-map" style="font-size:12px"></i> Map aléatoire
+        </p>
+        <div style="display:flex; gap:6px;">
+          <button class="btn-primary sm" id="spinBtn" onclick="spinRoulette()">
+            <i class="ti ti-dice-5"></i> Lancer
+          </button>
+          <button class="btn-ghost sm" id="rerollBtn" onclick="spinRoulette()" disabled title="Relancer">
+            <i class="ti ti-refresh"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="roulette-window" id="rouletteWindow" onclick="spinRoulette()" title="Cliquer pour lancer">
+        <div class="roulette-strip" id="rouletteStrip"></div>
+        <div class="roulette-indicator"></div>
+        <div class="roulette-fade-left"></div>
+        <div class="roulette-fade-right"></div>
+      </div>
+
+      <div class="map-result-card" id="mapResultCard">
+        <img class="map-result-thumb" id="mapResultThumb" src="" alt="">
+        <div class="map-result-info">
+          <span class="map-result-label">Map sélectionnée</span>
+          <span class="map-result-name" id="mapResultName"></span>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- ══ DROITE ══ -->
@@ -432,107 +375,149 @@ const RANKS = [
 const ROLES    = ['Duelist', 'Duelist', 'Initiator', 'Controller', 'Sentinel'];
 const ROLE_CLS = { Duelist:'role-duelist', Initiator:'role-initiator', Controller:'role-controller', Sentinel:'role-sentinel' };
 const LS_KEY   = 'val_teammaker_saved_v1';
+const MAPS     = ['Abyss','Ascent','Bind','Breeze','Corrode','Fracture','Haven','Icebox','Lotus','Pearl','Split','Sunset'];
 
 /* ─── État ─── */
-let players = [], idCounter = 0;
-let lastMask = -1;
-let savedPlayers = [];
-let savedCounter = 0;
+let players = [], idCounter = 0, lastMask = -1;
+let savedPlayers = [], savedCounter = 0;
+let rouletteSpinning = false, lastMapIndex = -1;
 
 /* ─── localStorage ─── */
 function loadFromStorage() {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    if (raw) {
-      const data = JSON.parse(raw);
-      savedPlayers = data.players || [];
-      savedCounter = data.counter || savedPlayers.length;
-    } else {
-      savedPlayers = [];
-      savedCounter = 0;
-    }
-  } catch (e) {
-    savedPlayers = [];
-    savedCounter = 0;
-  }
-  updateStorageStatus();
-  renderSaved();
+    if (raw) { const d = JSON.parse(raw); savedPlayers = d.players||[]; savedCounter = d.counter||savedPlayers.length; }
+    else { savedPlayers = []; savedCounter = 0; }
+  } catch(e) { savedPlayers = []; savedCounter = 0; }
+  updateStorageStatus(); renderSaved();
 }
-
 function persistSaved() {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify({
-      players: savedPlayers,
-      counter: savedCounter
-    }));
-    updateStorageStatus();
-  } catch (e) {
-    setStorageDot('error');
-    document.getElementById('storageLabel').textContent = 'Erreur de sauvegarde';
-  }
+  try { localStorage.setItem(LS_KEY, JSON.stringify({ players: savedPlayers, counter: savedCounter })); updateStorageStatus(); }
+  catch(e) { setStorageDot('error'); document.getElementById('storageLabel').textContent = 'Erreur de sauvegarde'; }
 }
-
 function updateStorageStatus() {
   setStorageDot('ok');
   const n = savedPlayers.length;
   document.getElementById('storageLabel').textContent =
-    n === 0 ? 'Aucun joueur enregistré'
-            : `${n} joueur${n > 1 ? 's' : ''} enregistré${n > 1 ? 's' : ''} — sauvegardé localement`;
+    n === 0 ? 'Aucun joueur enregistré' : `${n} joueur${n>1?'s':''} enregistré${n>1?'s':''} — sauvegardé localement`;
 }
-
-function setStorageDot(state) {
-  const dot = document.getElementById('storageDot');
-  dot.className = 'storage-dot' + (state === 'error' ? ' error' : '');
-}
+function setStorageDot(state) { document.getElementById('storageDot').className = 'storage-dot'+(state==='error'?' error':''); }
 
 /* ─── Helpers ─── */
 function rankInfo(val) { return RANKS.find(r => r.value === val) || RANKS[0]; }
-function esc(s) {
-  return String(s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function rankOptions(sel) {
-  return RANKS.map(r =>
-    `<option value="${r.value}"${r.value === sel ? ' selected' : ''}>${r.label}</option>`
-  ).join('');
-}
-function shuffle(a) {
-  const b = [...a];
-  for (let i = b.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [b[i], b[j]] = [b[j], b[i]];
-  }
-  return b;
-}
-function popcount(n) { let c = 0; while (n) { c += n & 1; n >>= 1; } return c; }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function rankOptions(sel) { return RANKS.map(r => `<option value="${r.value}"${r.value===sel?' selected':''}>${r.label}</option>`).join(''); }
+function shuffle(a) { const b=[...a]; for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]; } return b; }
+function popcount(n) { let c=0; while(n){ c+=n&1; n>>=1; } return c; }
 
-/* ─── Joueurs (gauche) ─── */
-function addPlayer(name = '', rank = 3) {
+/* ══ ROULETTE MAPS ══ */
+const ITEM_W = 280;
+
+// Construit la bande et centre immédiatement sur la map donnée (sans transition)
+function buildRouletteStrip(centeredMapIndex) {
+  const strip = document.getElementById('rouletteStrip');
+  const win   = document.getElementById('rouletteWindow');
+  strip.innerHTML = '';
+  const cycles = 6;
+  for (let i = 0; i < MAPS.length * cycles; i++) {
+    const map = MAPS[i % MAPS.length];
+    const item = document.createElement('div');
+    item.className = 'roulette-item';
+    item.innerHTML = `<img src="img/${map}_chargement.png" alt="${map}"><div class="roulette-item-label">${map}</div>`;
+    strip.appendChild(item);
+  }
+  // Centre sur le slot demandé (cycle 0 par défaut)
+  const slot = (centeredMapIndex !== undefined) ? centeredMapIndex : 0;
+  const winW = win.getBoundingClientRect().width || win.offsetWidth || 600;
+  const x = (winW / 2) - (slot * ITEM_W + ITEM_W / 2);
+  strip.style.transition = 'none';
+  strip.style.transform  = `translateX(${x}px)`;
+}
+
+function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+function spinRoulette() {
+  if (rouletteSpinning) return;
+  rouletteSpinning = true;
+
+  const strip    = document.getElementById('rouletteStrip');
+  const win      = document.getElementById('rouletteWindow');
+  const spinBtn  = document.getElementById('spinBtn');
+  const rerollBtn= document.getElementById('rerollBtn');
+  const card     = document.getElementById('mapResultCard');
+
+  spinBtn.disabled = true;
+  card.classList.remove('visible');
+
+  const winW = win.getBoundingClientRect().width || win.offsetWidth || 600;
+
+  // Reconstruire la bande fraîche et partir du slot 0 centré
+  buildRouletteStrip(0);
+  strip.getBoundingClientRect(); // force reflow
+
+  // Choisir une map différente de la précédente
+  let targetIdx;
+  do { targetIdx = Math.floor(Math.random() * MAPS.length); }
+  while (targetIdx === lastMapIndex && MAPS.length > 1);
+  lastMapIndex = targetIdx;
+
+  // Landing dans le 3e cycle
+  const landingSlot = 2 * MAPS.length + targetIdx;
+
+  const startX  = (winW / 2) - (ITEM_W / 2);
+  const targetX = (winW / 2) - (landingSlot * ITEM_W + ITEM_W / 2);
+
+  const duration = 2800;
+  let startTime  = null;
+  const dist     = startX - targetX;
+
+  function animate(ts) {
+    if (!startTime) startTime = ts;
+    const t    = Math.min((ts - startTime) / duration, 1);
+    const ease = easeOutExpo(t);
+    strip.style.transform = `translateX(${startX - dist * ease}px)`;
+
+    if (t < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      // Stopper exactement sur la map choisie — dans le cycle 0 cette fois
+      // pour que l'image reste affichée correctement sans rebuild
+      strip.style.transform = `translateX(${targetX}px)`;
+      rouletteSpinning  = false;
+      spinBtn.disabled  = false;
+      rerollBtn.disabled = false;
+
+      const mapName = MAPS[targetIdx];
+      document.getElementById('mapResultName').textContent = mapName;
+      document.getElementById('mapResultThumb').src = `img/${mapName}_chargement.png`;
+      document.getElementById('mapResultThumb').alt = mapName;
+      card.classList.add('visible');
+      // Pas de rebuild ici — la bande reste en place sur la map choisie
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+/* ─── Joueurs ─── */
+function addPlayer(name='', rank=3) {
   if (players.length >= 10) return;
   players.push({ id: idCounter++, name, rank });
-  lastMask = -1;
-  renderGrid();
-  renderSaved();
+  lastMask = -1; renderGrid(); renderSaved();
 }
 function removePlayer(id) {
   players = players.filter(p => p.id !== id);
-  lastMask = -1;
-  renderGrid();
-  renderSaved();
+  lastMask = -1; renderGrid(); renderSaved();
 }
 function updateName(id, val) {
-  const p = players.find(p => p.id === id);
-  if (p) {
-    p.name = val;
-    const alreadySaved = savedPlayers.some(s => s.name.toLowerCase() === val.trim().toLowerCase());
-    const pinBtn = document.querySelector(`button[onclick="pinPlayer(${id})"]`);
-    if (pinBtn) {
-      pinBtn.disabled = val.trim() === '' || alreadySaved;
-      pinBtn.className = 'pin-btn' + (alreadySaved ? ' pinned' : '');
-      pinBtn.title = alreadySaved ? 'Déjà enregistré' : val.trim() ? 'Enregistrer ce joueur' : 'Entrez un nom d\x27abord';
-      pinBtn.innerHTML = `<i class="ti ${alreadySaved ? 'ti-bookmark-filled' : 'ti-bookmark'}"></i>`;
-    }
+  const p = players.find(p => p.id === id); if (!p) return;
+  p.name = val;
+  const saved = savedPlayers.some(s => s.name.toLowerCase() === val.trim().toLowerCase());
+  const btn = document.querySelector(`button[onclick="pinPlayer(${id})"]`);
+  if (btn) {
+    btn.disabled = val.trim()==='' || saved;
+    btn.className = 'pin-btn'+(saved?' pinned':'');
+    btn.title = saved ? 'Déjà enregistré' : val.trim() ? 'Enregistrer ce joueur' : "Entrez un nom d'abord";
+    btn.innerHTML = `<i class="ti ${saved?'ti-bookmark-filled':'ti-bookmark'}"></i>`;
   }
 }
 function updateRank(id, val) { const p = players.find(p => p.id === id); if (p) p.rank = parseInt(val); }
@@ -541,19 +526,14 @@ function renderGrid() {
   const grid = document.getElementById('playerGrid');
   grid.innerHTML = '';
   players.forEach((p, i) => {
-    const alreadySaved = savedPlayers.some(s => s.name.toLowerCase() === p.name.trim().toLowerCase());
-    const canPin = p.name.trim() !== '' && !alreadySaved;
+    const saved = savedPlayers.some(s => s.name.toLowerCase() === p.name.trim().toLowerCase());
     const row = document.createElement('div');
     row.className = 'player-row';
     row.innerHTML = `
-      <input type="text" placeholder="Joueur ${i + 1}" value="${esc(p.name)}"
-        oninput="updateName(${p.id}, this.value)">
+      <input type="text" placeholder="Joueur ${i+1}" value="${esc(p.name)}" oninput="updateName(${p.id}, this.value)">
       <select onchange="updateRank(${p.id}, this.value)">${rankOptions(p.rank)}</select>
-      <button class="pin-btn${alreadySaved ? ' pinned' : ''}"
-        onclick="pinPlayer(${p.id})"
-        ${alreadySaved ? 'disabled' : ''}
-        title="${alreadySaved ? 'Déjà enregistré' : 'Enregistrer ce joueur'}">
-        <i class="ti ${alreadySaved ? 'ti-bookmark-filled' : 'ti-bookmark'}"></i>
+      <button class="pin-btn${saved?' pinned':''}" onclick="pinPlayer(${p.id})" ${saved?'disabled':''} title="${saved?'Déjà enregistré':'Enregistrer ce joueur'}">
+        <i class="ti ${saved?'ti-bookmark-filled':'ti-bookmark'}"></i>
       </button>
       <button class="remove-btn" onclick="removePlayer(${p.id})" aria-label="Retirer">
         <i class="ti ti-x"></i>
@@ -568,18 +548,15 @@ function pinPlayer(id) {
   const p = players.find(p => p.id === id);
   if (!p || !p.name.trim()) return;
   if (savedPlayers.some(s => s.name.toLowerCase() === p.name.trim().toLowerCase())) return;
-  savedPlayers.push({ id: 's' + savedCounter++, name: p.name.trim(), rank: p.rank });
-  persistSaved();
-  renderSaved();
-  renderGrid(); // met à jour l'icône en "déjà enregistré"
+  savedPlayers.push({ id: 's'+savedCounter++, name: p.name.trim(), rank: p.rank });
+  persistSaved(); renderSaved(); renderGrid();
 }
 
-/* ─── Joueurs sauvegardés (droite) ─── */
+/* ─── Joueurs sauvegardés ─── */
 function renderSaved() {
   const list = document.getElementById('savedList');
   if (!savedPlayers.length) {
-    list.innerHTML = `<p class="saved-empty">Aucun joueur enregistré.<br>
-      <span style="font-size:11px;opacity:0.6">Clique sur « Nouveau » pour en ajouter.</span></p>`;
+    list.innerHTML = `<p class="saved-empty">Aucun joueur enregistré.<br><span style="font-size:11px;opacity:0.6">Clique sur « Nouveau » pour en ajouter.</span></p>`;
     return;
   }
   list.innerHTML = savedPlayers.map(sp => {
@@ -592,18 +569,11 @@ function renderSaved() {
           <span class="badge ${ri.cls}">${ri.label}</span>
         </div>
         <div class="saved-actions">
-          <button class="btn-add${alreadyIn ? ' added' : ''}"
-            onclick="addFromSaved('${sp.id}')"
-            ${alreadyIn || players.length >= 10 ? 'disabled' : ''}
-            title="${alreadyIn ? 'Déjà dans la liste' : 'Ajouter à la partie'}">
-            <i class="ti ${alreadyIn ? 'ti-check' : 'ti-plus'}"></i>
+          <button class="btn-add${alreadyIn?' added':''}" onclick="addFromSaved('${sp.id}')" ${alreadyIn||players.length>=10?'disabled':''} title="${alreadyIn?'Déjà dans la liste':'Ajouter à la partie'}">
+            <i class="ti ${alreadyIn?'ti-check':'ti-plus'}"></i>
           </button>
-          <button class="btn-ghost xs" onclick="openEditSaved('${sp.id}')" title="Modifier">
-            <i class="ti ti-pencil"></i>
-          </button>
-          <button class="btn-del" onclick="deleteSaved('${sp.id}')" title="Supprimer">
-            <i class="ti ti-trash"></i>
-          </button>
+          <button class="btn-ghost xs" onclick="openEditSaved('${sp.id}')" title="Modifier"><i class="ti ti-pencil"></i></button>
+          <button class="btn-del" onclick="deleteSaved('${sp.id}')" title="Supprimer"><i class="ti ti-trash"></i></button>
         </div>
       </div>
       <div class="edit-saved-form" id="edit-${sp.id}">
@@ -617,157 +587,97 @@ function renderSaved() {
   }).join('');
 }
 
-function addFromSaved(sid) {
-  if (players.length >= 10) return;
-  const sp = savedPlayers.find(s => s.id === sid);
-  if (!sp) return;
-  addPlayer(sp.name, sp.rank);
-}
-
-function deleteSaved(sid) {
-  savedPlayers = savedPlayers.filter(s => s.id !== sid);
-  persistSaved();
-  renderSaved();
-}
-
-function openAddSaved() {
-  document.getElementById('addSavedForm').style.display = 'flex';
-  document.getElementById('savedName').focus();
-}
-function closeAddSaved() {
-  document.getElementById('addSavedForm').style.display = 'none';
-  document.getElementById('savedName').value = '';
-}
+function addFromSaved(sid) { if (players.length>=10) return; const sp=savedPlayers.find(s=>s.id===sid); if(sp) addPlayer(sp.name,sp.rank); }
+function deleteSaved(sid) { savedPlayers=savedPlayers.filter(s=>s.id!==sid); persistSaved(); renderSaved(); }
+function openAddSaved()  { document.getElementById('addSavedForm').style.display='flex'; document.getElementById('savedName').focus(); }
+function closeAddSaved() { document.getElementById('addSavedForm').style.display='none'; document.getElementById('savedName').value=''; }
 function saveNewPlayer() {
-  const name = document.getElementById('savedName').value.trim();
-  const rank = parseInt(document.getElementById('savedRank').value);
-  if (!name) { document.getElementById('savedName').focus(); return; }
-  if (savedPlayers.some(s => s.name.toLowerCase() === name.toLowerCase())) {
-    const input = document.getElementById('savedName');
-    input.style.borderColor = 'var(--accent-red)';
-    input.placeholder = 'Ce nom existe déjà !';
-    setTimeout(() => {
-      input.style.borderColor = '';
-      input.placeholder = 'Nom du joueur';
-    }, 1500);
-    return;
+  const name=document.getElementById('savedName').value.trim();
+  const rank=parseInt(document.getElementById('savedRank').value);
+  if(!name){ document.getElementById('savedName').focus(); return; }
+  if(savedPlayers.some(s=>s.name.toLowerCase()===name.toLowerCase())){
+    const inp=document.getElementById('savedName');
+    inp.style.borderColor='var(--accent-red)'; inp.placeholder='Ce nom existe déjà !';
+    setTimeout(()=>{ inp.style.borderColor=''; inp.placeholder='Nom du joueur'; },1500); return;
   }
-  savedPlayers.push({ id: 's' + savedCounter++, name, rank });
-  persistSaved();
-  closeAddSaved();
-  renderSaved();
+  savedPlayers.push({ id:'s'+savedCounter++, name, rank });
+  persistSaved(); closeAddSaved(); renderSaved();
 }
-
-function openEditSaved(sid) {
-  document.querySelectorAll('.edit-saved-form').forEach(el => el.style.display = 'none');
-  const form = document.getElementById('edit-' + sid);
-  if (form) { form.style.display = 'flex'; document.getElementById('edit-name-' + sid).focus(); }
-}
-function closeEditSaved(sid) {
-  const form = document.getElementById('edit-' + sid);
-  if (form) form.style.display = 'none';
-}
+function openEditSaved(sid) { document.querySelectorAll('.edit-saved-form').forEach(el=>el.style.display='none'); const f=document.getElementById('edit-'+sid); if(f){ f.style.display='flex'; document.getElementById('edit-name-'+sid).focus(); } }
+function closeEditSaved(sid) { const f=document.getElementById('edit-'+sid); if(f) f.style.display='none'; }
 function applyEditSaved(sid) {
-  const name = document.getElementById('edit-name-' + sid).value.trim();
-  const rank = parseInt(document.getElementById('edit-rank-' + sid).value);
-  if (!name) return;
-  const sp = savedPlayers.find(s => s.id === sid);
-  if (!sp) return;
-  sp.name = name;
-  sp.rank = rank;
-  persistSaved();
-  closeEditSaved(sid);
-  renderSaved();
-  renderGrid();
+  const name=document.getElementById('edit-name-'+sid).value.trim();
+  const rank=parseInt(document.getElementById('edit-rank-'+sid).value);
+  if(!name) return;
+  const sp=savedPlayers.find(s=>s.id===sid); if(!sp) return;
+  sp.name=name; sp.rank=rank;
+  persistSaved(); closeEditSaved(sid); renderSaved(); renderGrid();
 }
 
 /* ─── Algorithme ─── */
 function bestSplit(arr) {
-  const n = arr.length, half = n / 2;
-  let bestDiff = Infinity;
-  const bestMasks = [];
-  for (let mask = 0; mask < (1 << n); mask++) {
-    if (popcount(mask) !== half) continue;
-    let s1 = 0, s2 = 0;
-    for (let i = 0; i < n; i++) (mask & (1 << i)) ? s1 += arr[i].rank : s2 += arr[i].rank;
-    const diff = Math.abs(s1 - s2);
-    if (diff < bestDiff) { bestDiff = diff; bestMasks.length = 0; bestMasks.push(mask); }
-    else if (diff === bestDiff) { bestMasks.push(mask); }
+  const n=arr.length, half=n/2; let bestDiff=Infinity; const bestMasks=[];
+  for(let mask=0;mask<(1<<n);mask++){
+    if(popcount(mask)!==half) continue;
+    let s1=0,s2=0;
+    for(let i=0;i<n;i++) (mask&(1<<i)) ? s1+=arr[i].rank : s2+=arr[i].rank;
+    const diff=Math.abs(s1-s2);
+    if(diff<bestDiff){ bestDiff=diff; bestMasks.length=0; bestMasks.push(mask); }
+    else if(diff===bestDiff){ bestMasks.push(mask); }
   }
-  const seen = new Set(), unique = [];
-  for (const mask of bestMasks) {
-    const full = (1 << n) - 1;
-    const key = Math.min(mask, (~mask) & full);
-    if (!seen.has(key)) { seen.add(key); unique.push(mask); }
-  }
-  let pool = unique.filter(m => m !== lastMask);
-  if (pool.length === 0) pool = unique;
-  const chosen = pool[Math.floor(Math.random() * pool.length)];
-  lastMask = chosen;
-  const t1 = [], t2 = [];
-  for (let i = 0; i < n; i++) (chosen & (1 << i)) ? t1.push(arr[i]) : t2.push(arr[i]);
-  return [t1, t2, bestDiff, unique.length];
+  const seen=new Set(), unique=[];
+  for(const mask of bestMasks){ const full=(1<<n)-1; const key=Math.min(mask,(~mask)&full); if(!seen.has(key)){ seen.add(key); unique.push(mask); } }
+  let pool=unique.filter(m=>m!==lastMask); if(pool.length===0) pool=unique;
+  const chosen=pool[Math.floor(Math.random()*pool.length)];
+  lastMask=chosen;
+  const t1=[],t2=[];
+  for(let i=0;i<n;i++) (chosen&(1<<i)) ? t1.push(arr[i]) : t2.push(arr[i]);
+  return [t1,t2,bestDiff,unique.length];
 }
 
-/* ─── Génération ─── */
+/* ─── Génération équipes ─── */
 function generate() {
-  document.getElementById('errorMsg').style.display = 'none';
-  const valid = players.filter(p => p.name.trim());
-  if (valid.length < 2)       return showError('Ajoute au moins 2 joueurs avec un nom.');
-  if (valid.length % 2 !== 0) return showError('Le nombre de joueurs doit être pair.');
-  const useRoles = document.getElementById('rolesToggle').checked;
-  if (useRoles && valid.length / 2 !== 5) return showError('Les rôles nécessitent exactement 10 joueurs.');
+  document.getElementById('errorMsg').style.display='none';
+  const valid=players.filter(p=>p.name.trim());
+  if(valid.length<2)       return showError('Ajoute au moins 2 joueurs avec un nom.');
+  if(valid.length%2!==0)   return showError('Le nombre de joueurs doit être pair.');
+  const useRoles=document.getElementById('rolesToggle').checked;
+  if(useRoles&&valid.length/2!==5) return showError('Les rôles nécessitent exactement 10 joueurs.');
 
-  const [t1, t2, diff, totalCombos] = bestSplit(valid.map(p => ({ ...p, rank: parseInt(p.rank) })));
-  const roles1 = useRoles ? shuffle(ROLES) : null;
-  const roles2 = useRoles ? shuffle(ROLES) : null;
+  const [t1,t2,diff,totalCombos]=bestSplit(valid.map(p=>({...p,rank:parseInt(p.rank)})));
+  const roles1=useRoles?shuffle(ROLES):null, roles2=useRoles?shuffle(ROLES):null;
 
-  const name = document.getElementById('sessionName').value.trim();
+  const name=document.getElementById('sessionName').value.trim();
   document.getElementById('sessionTitle').textContent = name ? `🎮 ${name}` : 'Résultat';
 
-  const s1 = t1.reduce((a, p) => a + p.rank, 0);
-  const s2 = t2.reduce((a, p) => a + p.rank, 0);
-  document.getElementById('teamsGrid').innerHTML =
-    buildTeam('🔵 Équipe 1', t1, s1, roles1, 'blue') +
-    buildTeam('🔴 Équipe 2', t2, s2, roles2, 'red');
+  const s1=t1.reduce((a,p)=>a+p.rank,0), s2=t2.reduce((a,p)=>a+p.rank,0);
+  document.getElementById('teamsGrid').innerHTML = buildTeam('🔵 Équipe 1',t1,s1,roles1,'blue') + buildTeam('🔴 Équipe 2',t2,s2,roles2,'red');
 
-  const comboTxt = totalCombos > 1
-    ? ` · ${totalCombos} combinaison${totalCombos > 1 ? 's' : ''} équitable${totalCombos > 1 ? 's' : ''}`
-    : '';
-  document.getElementById('diffRow').innerHTML =
-    `Différence totale : <strong>${diff} point${diff !== 1 ? 's' : ''}</strong>${comboTxt}`;
+  const comboTxt=totalCombos>1?` · ${totalCombos} combinaisons équitables`:'';
+  document.getElementById('diffRow').innerHTML = `Différence totale : <strong>${diff} point${diff!==1?'s':''}</strong>${comboTxt}`;
 
-  document.getElementById('placeholder').style.display = 'none';
-  document.getElementById('result').style.display = 'flex';
+  document.getElementById('placeholder').style.display='none';
+  document.getElementById('result').style.display='flex';
 }
 
-function showError(msg) {
-  const el = document.getElementById('errorMsg');
-  el.textContent = msg;
-  el.style.display = 'block';
-}
+function showError(msg) { const el=document.getElementById('errorMsg'); el.textContent=msg; el.style.display='block'; }
 
 function buildTeam(title, players, score, roles, color) {
-  const avg = rankInfo(Math.round(score / players.length));
-  const items = players.map((p, i) => {
-    const ri = rankInfo(p.rank);
-    const rb = roles ? `<span class="badge ${ROLE_CLS[roles[i]]}">${roles[i]}</span>` : '';
-    return `<li>
-      <span class="player-name">${esc(p.name)}</span>
-      <span class="player-meta">${rb}<span class="badge ${ri.cls}">${ri.label}</span></span>
-    </li>`;
+  const avg=rankInfo(Math.round(score/players.length));
+  const items=players.map((p,i)=>{
+    const ri=rankInfo(p.rank);
+    const rb=roles?`<span class="badge ${ROLE_CLS[roles[i]]}">${roles[i]}</span>`:'';
+    return `<li><span class="player-name">${esc(p.name)}</span><span class="player-meta">${rb}<span class="badge ${ri.cls}">${ri.label}</span></span></li>`;
   }).join('');
-  return `<div class="team-card ${color}">
-    <p class="team-name">${title} <span class="team-score">— ${score} pts</span></p>
-    <p class="team-avg">Rang moyen : ${avg.label}</p>
-    <ul class="team-list">${items}</ul>
-  </div>`;
+  return `<div class="team-card ${color}"><p class="team-name">${title} <span class="team-score">— ${score} pts</span></p><p class="team-avg">Rang moyen : ${avg.label}</p><ul class="team-list">${items}</ul></div>`;
 }
 
 /* ─── Init ─── */
 document.getElementById('savedRank').innerHTML = rankOptions(3);
 renderGrid();
 loadFromStorage();
+// Attendre que le DOM soit peint avant de calculer les largeurs
+requestAnimationFrame(() => buildRouletteStrip());
 </script>
 </body>
 </html>
