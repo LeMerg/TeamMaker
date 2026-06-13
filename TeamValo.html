@@ -82,6 +82,11 @@
     .btn-icon.del:hover { background: rgba(255,70,85,0.15); color: var(--red); }
     .btn-icon:disabled { opacity: 0.25; cursor: not-allowed; }
 
+
+    /* Toggle rôles désactivé quand agents actifs */
+    .toggle-row.disabled { opacity: 0.4; pointer-events: none; }
+    .toggle-row.disabled input { cursor: not-allowed; }
+
     .toggle-row { display: flex; gap: 10px; align-items: flex-start; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--r-md); padding: 10px 12px; transition: opacity 0.2s; }
     .toggle-row input[type=checkbox] { width: 14px; height: 14px; margin-top: 3px; flex-shrink: 0; cursor: pointer; accent-color: var(--red); }
     .toggle-row label { cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
@@ -162,7 +167,7 @@
     .player-card.team-blue::before { background: linear-gradient(to bottom, var(--blue), #4a80cc); box-shadow: 2px 0 8px rgba(122,180,255,0.4); }
     .player-card.team-red::before  { background: linear-gradient(to bottom, var(--red), var(--red-d)); box-shadow: 2px 0 8px rgba(255,70,85,0.4); }
     .player-card.team-gold::before { background: linear-gradient(to bottom, var(--gold), #ccaa44); box-shadow: 2px 0 8px rgba(255,209,102,0.4); }
-    .card-body { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; align-items: center; gap: 10px; padding: 12px 14px; }
+    .card-body { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 12px 14px; }
     .card-champ-placeholder { width: 52px; height: 52px; border-radius: 10px; background: var(--bg-4); border: 1px dashed var(--border-h); display: flex; align-items: center; justify-content: center; color: var(--text-2); font-size: 20px; flex-shrink: 0; }
     .card-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
     .card-champ-name { font-size: 11px; color: var(--red); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -194,6 +199,82 @@
     .map-result-info { display: flex; flex-direction: column; gap: 3px; }
     .map-result-label { font-size: 10px; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.07em; }
     .map-result-name  { font-size: 22px; font-weight: 700; color: var(--text); }
+
+
+    /* ── Role block (droite de la carte) ── */
+    .card-role {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 4px; flex-shrink: 0; padding: 0 4px;
+      min-width: 52px;
+    }
+    .card-role img {
+      width: 34px; height: 34px; object-fit: contain;
+      filter: drop-shadow(0 1px 4px rgba(0,0,0,0.5));
+    }
+    .card-role-name {
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-2); white-space: nowrap;
+    }
+
+
+    /* ── Cartes verticales mode Five Stack — même structure que LoL Flex ── */
+    .player-card-v {
+      width: 100%; border-radius: var(--r-lg); overflow: hidden;
+      background: var(--bg-3); border: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+    }
+    .player-card-v:hover { border-color: var(--border-h); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.5); }
+    .player-card-v::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 2; }
+    .player-card-v.team-gold::before { background: linear-gradient(90deg, var(--gold), #ccaa44); }
+    .player-card-v.team-blue::before { background: linear-gradient(90deg, var(--blue), #4a80cc); }
+    .player-card-v.team-red::before  { background: linear-gradient(90deg, var(--red), var(--red-d)); }
+
+    /* Zone image — aspect-ratio carré, même que LoL */
+    .card-v-img-wrap {
+      width: 100%; aspect-ratio: 1 / 1; overflow: hidden;
+      background: var(--bg-4); position: relative;
+    }
+    .card-v-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      display: block; transition: transform 0.3s;
+    }
+    .player-card-v:hover .card-v-img-wrap img { transform: scale(1.04); }
+    .card-v-img-wrap .role-icon-wrap {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    }
+    .card-v-img-wrap .role-icon-wrap img {
+      width: 50%; height: 50%; object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6)); opacity: 0.85;
+      transform: none !important; transition: none !important;
+    }
+    .card-v-img-wrap .no-agent-placeholder {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      color: var(--text-2); font-size: 40px; opacity: 0.3;
+    }
+
+    /* Infos bas de carte */
+    .card-v-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 5px; }
+    .card-v-agent-name {
+      font-size: 11px; font-weight: 700; color: var(--red);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .card-v-player {
+      font-size: 17px; font-weight: 800; color: var(--text);
+      letter-spacing: -0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .card-v-footer { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 2px; }
+    .card-v-role-info { display: flex; align-items: center; gap: 5px; }
+    .card-v-role-info img { width: 18px; height: 18px; object-fit: contain; }
+    .card-v-role-name-big { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-2); }
+
+
+    /* Mode Five Stack / Flex : teamsGrid devient transparent */
+    .teams-grid.mode-single {
+      display: block !important;
+    }
 
     @media (max-width: 1100px) { .app { grid-template-columns: 270px 1fr 240px; } }
     @media (max-width: 900px) {
@@ -248,10 +329,18 @@
       <div class="div"></div>
 
       <div class="toggle-row" id="rolesToggleRow">
-        <input type="checkbox" id="rolesToggle">
+        <input type="checkbox" id="rolesToggle" onchange="onRolesToggle()">
         <label for="rolesToggle">
           <span class="tgl-title">Rôles aléatoires</span>
           <span class="tgl-sub" id="rolesToggleSub">Duelist · Initiator · Controller · Sentinel</span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="agentToggle" onchange="onAgentToggle()">
+        <label for="agentToggle">
+          <span class="tgl-title">Agents aléatoires</span>
+          <span class="tgl-sub">1 agent unique par rôle · aucun doublon</span>
         </label>
       </div>
 
@@ -277,6 +366,9 @@
           <div class="result-actions">
             <button class="btn-ghost sm" id="rerollRolesBtn" onclick="rerollRoles()" style="display:none">
               <i class="ti ti-arrows-shuffle"></i> Rôles
+            </button>
+            <button class="btn-ghost sm" id="rerollAgentsBtn" onclick="rerollAgents()" style="display:none">
+              <i class="ti ti-cards"></i> Agents
             </button>
             <button class="btn-ghost sm" onclick="generate()">
               <i class="ti ti-refresh"></i> Regénérer
@@ -363,13 +455,51 @@ const RANKS = [
 const ROLES    = ['Duelist', 'Duelist', 'Initiator', 'Controller', 'Sentinel'];
 const ROLE_CLS = { Duelist:'role-duelist', Initiator:'role-initiator', Controller:'role-controller', Sentinel:'role-sentinel' };
 const ROLE_BADGE_CLS = { Duelist:'role-badge role-duelist', Initiator:'role-badge role-initiator', Controller:'role-badge role-controller', Sentinel:'role-badge role-sentinel' };
+
+const ROLE_IMG = {
+  Duelist:    'roles_valo/ClasseDuelliste.webp',
+  Initiator:  'roles_valo/ClasseInitiateur.webp',
+  Controller: 'roles_valo/ClasseController.webp',
+  Sentinel:   'roles_valo/ClasseSentinelle.webp',
+};
 const LS_KEY = 'val_teammaker_saved_v1';
 const MAPS = ['Abyss','Ascent','Bind','Breeze','Corrode','Fracture','Haven','Icebox','Lotus','Pearl','Split','Sunset'];
+
+
+// Agents Valorant — rôles fixes, impossibles à interchanger
+const AGENTS_BY_ROLE = {
+  Duelist:    ['Jett','Neon','Phoenix','Raze','Reyna','Iso','Waylay','Yoru'],
+  Initiator:  ['Breach','Fade','Gekko','KayO','Skye','Sova','Tejo'],
+  Controller: ['Astra','Brimstone','Clove','Harbor','Omen','Viper','Veto'],
+  Sentinel:   ['Chamber','Cypher','Deadlock','Killjoy','Sage','Vyse','Miks'],
+};
+
+// Pioche un agent pour un rôle précis, sans doublon sur toute la partie
+function pickAgentForRole(role, usedAgents) {
+  const pool = AGENTS_BY_ROLE[role].filter(a => !usedAgents.has(a));
+  if (!pool.length) return null; // tous pris (ne devrait pas arriver avec 5 joueurs max)
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  usedAgents.add(pick);
+  return pick;
+}
+
+function pickAgentsForRoles(roles) {
+  const used = new Set();
+  return roles.map(role => pickAgentForRole(role, used));
+}
+
+// Sans rôles : tirage libre sans doublon
+function pickAgents(count) {
+  const all = Object.values(AGENTS_BY_ROLE).flat();
+  const shuffled = [...all].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
 
 let players = [], idCounter = 0, lastMask = -1;
 let savedPlayers = [], savedCounter = 0;
 let lastT1 = [], lastT2 = [], lastS1 = 0, lastS2 = 0;
 let lastRoles1 = null, lastRoles2 = null;
+let lastAgents1 = null, lastAgents2 = null;
 let rouletteSpinning = false, lastMapIndex = -1;
 let currentMode = 'custom';
 const MAX_CUSTOM = 10;
@@ -390,6 +520,7 @@ function setMode(mode) {
   document.getElementById('result').style.display = 'none';
   document.getElementById('placeholder').style.display = 'flex';
   document.getElementById('rerollRolesBtn').style.display = 'none';
+  document.getElementById('rerollAgentsBtn').style.display = 'none';
 }
 
 function updateRolesToggleVisibility() {
@@ -643,23 +774,53 @@ function bestSplit(arr) {
   return [t1,t2,bestDiff,unique.length];
 }
 
+
+function onAgentToggle() {
+  const agentCb = document.getElementById('agentToggle');
+  const rolesCb = document.getElementById('rolesToggle');
+  const rolesRow = document.getElementById('rolesToggleRow');
+  if (agentCb.checked) {
+    // Décocher et griser les rôles — les agents impliquent les rôles automatiquement
+    rolesCb.checked = false;
+    rolesRow.classList.add('disabled');
+  } else {
+    rolesRow.classList.remove('disabled');
+  }
+}
+
+function onRolesToggle() {
+  // Si on coche les rôles alors que les agents sont actifs → décocher les agents
+  const agentCb = document.getElementById('agentToggle');
+  if (agentCb.checked) {
+    agentCb.checked = false;
+    document.getElementById('rolesToggleRow').classList.remove('disabled');
+  }
+}
+
 function generate() {
   document.getElementById('errorMsg').style.display='none';
   const valid=players.filter(p=>p.name.trim());
-  const useRoles=document.getElementById('rolesToggle').checked;
+  const useAgents=document.getElementById('agentToggle').checked;
+  // Agents impliquent les rôles automatiquement
+  const useRoles = document.getElementById('rolesToggle').checked || useAgents;
 
   if (currentMode === 'fivestack') {
     if (valid.length < 1) return showError('Ajoute au moins 1 joueur.');
     if (valid.length > 5) return showError('Maximum 5 joueurs en Five Stack.');
     if (useRoles && valid.length !== 5) return showError('Les rôles nécessitent 5 joueurs.');
+    if (useAgents && !useRoles && valid.length > Object.values(AGENTS_BY_ROLE).flat().length)
+      return showError("Plus de joueurs que d'agents disponibles.");
     const roles = useRoles ? shuffle(ROLES) : null;
+    // Agents : toujours respectent le rôle si rôles actifs
+    let agents = null;
+    if (useAgents) agents = roles ? pickAgentsForRoles(roles) : pickAgents(valid.length);
     const score = valid.reduce((a,p)=>a+parseInt(p.rank),0);
     lastT1=valid; lastT2=[]; lastS1=score; lastS2=0;
-    lastRoles1=roles; lastRoles2=null;
+    lastRoles1=roles; lastRoles2=null; lastAgents1=agents; lastAgents2=null;
     const name=document.getElementById('sessionName').value.trim();
-    document.getElementById('sessionTitle').textContent = name ? `🎮 ${name}` : 'T Five Stack';
-    document.getElementById('teamsGrid').innerHTML =
-      `<div class="single-team">${buildTeamSection('⚔️ Ton équipe', valid, score, roles, 'gold')}</div>`;
+    document.getElementById('sessionTitle').textContent = name ? `🎮 ${name}` : 'Ton Five Stack';
+    document.getElementById('teamsGrid').className = 'teams-grid mode-single';
+    document.getElementById('teamsGrid').innerHTML = buildFiveStackCards('⚔️ Ton équipe', valid, roles, agents, 'gold');
     document.getElementById('diffRow').innerHTML = '';
   } else {
     if (valid.length < 2) return showError('Ajoute au moins 2 joueurs.');
@@ -667,49 +828,153 @@ function generate() {
     if (useRoles && valid.length !== 10) return showError('Les rôles nécessitent exactement 10 joueurs.');
     const [t1,t2,diff,combos]=bestSplit(valid.map(p=>({...p,rank:parseInt(p.rank)})));
     const roles1=useRoles?shuffle(ROLES):null, roles2=useRoles?shuffle(ROLES):null;
+    let agents1=null, agents2=null;
+    if (useAgents) {
+      if (roles1) {
+        // Agents par rôle, pool partagé entre les deux équipes (pas de doublon global)
+        const used = new Set();
+        agents1 = roles1.map(r => pickAgentForRole(r, used));
+        agents2 = roles2.map(r => pickAgentForRole(r, used));
+      } else {
+        const all = pickAgents(t1.length + t2.length);
+        agents1 = all.slice(0, t1.length); agents2 = all.slice(t1.length);
+      }
+    }
     const name=document.getElementById('sessionName').value.trim();
     document.getElementById('sessionTitle').textContent = name ? `🎮 ${name}` : 'Résultat';
     const s1=t1.reduce((a,p)=>a+p.rank,0), s2=t2.reduce((a,p)=>a+p.rank,0);
-    lastT1=t1; lastT2=t2; lastS1=s1; lastS2=s2; lastRoles1=roles1; lastRoles2=roles2;
+    lastT1=t1; lastT2=t2; lastS1=s1; lastS2=s2;
+    lastRoles1=roles1; lastRoles2=roles2; lastAgents1=agents1; lastAgents2=agents2;
+    document.getElementById('teamsGrid').className = 'teams-grid';
     document.getElementById('teamsGrid').innerHTML =
-      buildTeamSection('🔵 Équipe 1',t1,s1,roles1,'blue')+
-      buildTeamSection('🔴 Équipe 2',t2,s2,roles2,'red');
+      buildTeamSection('🔵 Équipe 1',t1,s1,roles1,agents1,'blue')+
+      buildTeamSection('🔴 Équipe 2',t2,s2,roles2,agents2,'red');
     const ctxt=combos>1?` · ${combos} combinaisons équitables`:'';
     document.getElementById('diffRow').innerHTML = `Diff : <strong>${diff} pt${diff!==1?'s':''}</strong>${ctxt}`;
   }
   document.getElementById('placeholder').style.display='none';
   document.getElementById('result').style.display='flex';
   document.getElementById('rerollRolesBtn').style.display = useRoles?'inline-flex':'none';
+  document.getElementById('rerollAgentsBtn').style.display = useAgents?'inline-flex':'none';
 }
 
 function rerollRoles() {
   if(!lastT1.length) return;
+  const useAgents = document.getElementById('agentToggle').checked;
   if(currentMode==='fivestack') {
     lastRoles1=shuffle(ROLES);
-    document.getElementById('teamsGrid').innerHTML =
-      `<div class="single-team">${buildTeamSection('⚔️ Ton équipe',lastT1,lastS1,lastRoles1,'gold')}</div>`;
+    // Resync agents sur les nouveaux rôles
+    if (useAgents && lastAgents1) lastAgents1 = pickAgentsForRoles(lastRoles1);
+    document.getElementById('teamsGrid').className = 'teams-grid mode-single';
+    document.getElementById('teamsGrid').innerHTML = buildFiveStackCards('⚔️ Ton équipe',lastT1,lastRoles1,lastAgents1,'gold');
   } else {
     lastRoles1=shuffle(ROLES); lastRoles2=shuffle(ROLES);
+    if (useAgents && lastAgents1) {
+      const used = new Set();
+      lastAgents1 = lastRoles1.map(r => pickAgentForRole(r, used));
+      lastAgents2 = lastRoles2.map(r => pickAgentForRole(r, used));
+    }
+    document.getElementById('teamsGrid').className = 'teams-grid';
     document.getElementById('teamsGrid').innerHTML =
-      buildTeamSection('🔵 Équipe 1',lastT1,lastS1,lastRoles1,'blue')+
-      buildTeamSection('🔴 Équipe 2',lastT2,lastS2,lastRoles2,'red');
+      buildTeamSection('🔵 Équipe 1',lastT1,lastS1,lastRoles1,lastAgents1,'blue')+
+      buildTeamSection('🔴 Équipe 2',lastT2,lastS2,lastRoles2,lastAgents2,'red');
+  }
+}
+
+function rerollAgents() {
+  if(!lastT1.length) return;
+  if(currentMode==='fivestack') {
+    lastAgents1 = lastRoles1 ? pickAgentsForRoles(lastRoles1) : pickAgents(lastT1.length);
+    document.getElementById('teamsGrid').className = 'teams-grid mode-single';
+    document.getElementById('teamsGrid').innerHTML = buildFiveStackCards('⚔️ Ton équipe',lastT1,lastRoles1,lastAgents1,'gold');
+  } else {
+    if (lastRoles1) {
+      const used = new Set();
+      lastAgents1 = lastRoles1.map(r => pickAgentForRole(r, used));
+      lastAgents2 = lastRoles2.map(r => pickAgentForRole(r, used));
+    } else {
+      const all = pickAgents(lastT1.length + lastT2.length);
+      lastAgents1 = all.slice(0, lastT1.length); lastAgents2 = all.slice(lastT1.length);
+    }
+    document.getElementById('teamsGrid').className = 'teams-grid';
+    document.getElementById('teamsGrid').innerHTML =
+      buildTeamSection('🔵 Équipe 1',lastT1,lastS1,lastRoles1,lastAgents1,'blue')+
+      buildTeamSection('🔴 Équipe 2',lastT2,lastS2,lastRoles2,lastAgents2,'red');
   }
 }
 
 function showError(msg) { const el=document.getElementById('errorMsg'); el.textContent=msg; el.style.display='block'; }
 
-function buildTeamSection(title, players, score, roles, color) {
+
+/* ─── Build five stack cards (layout vertical) ─── */
+function buildFiveStackCards(title, players, roles, agents, color) {
+  const cards = players.map((p,i) => {
+    const ri = rankInfo(p.rank);
+    const role  = roles  ? roles[i]  : null;
+    const agent = agents ? agents[i] : null;
+
+    let imgContent;
+    if (agent) {
+      imgContent = `<img src="icon_agent/${agent}.png" alt="${agent}" onerror="this.style.display='none'">`;
+    } else if (role) {
+      imgContent = `<div class="role-icon-wrap"><img src="${ROLE_IMG[role]}" alt="${role}"></div>`;
+    } else {
+      imgContent = `<div class="no-agent-placeholder"><i class="ti ti-user"></i></div>`;
+    }
+
+    const agentName = agent ? `<div class="card-v-agent-name">${agent}</div>` : '';
+    const roleInfo  = role
+      ? `<div class="card-v-role-info"><img src="${ROLE_IMG[role]}" alt="${role}"><span class="card-v-role-name-big">${role}</span></div>`
+      : '';
+
+    return `<div class="player-card-v team-${color}">
+      <div class="card-v-img-wrap">${imgContent}</div>
+      <div class="card-v-body">
+        ${agentName}
+        <div class="card-v-player">${esc(p.name)}</div>
+        <div class="card-v-footer">
+          ${roleInfo}
+          <span class="badge ${ri.cls}">${ri.label}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const cols = Math.min(players.length, 5);
+  return `<div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:12px;width:100%">${cards}</div>`;
+}
+
+function buildTeamSection(title, players, score, roles, agents, color) {
   const avg = rankInfo(Math.round(score/players.length));
   const cards = players.map((p,i) => {
     const ri = rankInfo(p.rank);
-    const role = roles ? roles[i] : null;
-    const roleB = role ? `<span class="badge ${ROLE_BADGE_CLS[role]}">${role}</span>` : '';
+    const role  = roles  ? roles[i]  : null;
+    const agent = agents ? agents[i] : null;
+    // Portrait agent à gauche si dispo
+    const agentImg = agent
+      ? `<img class="card-champ-img" src="icon_agent/${agent}.png" alt="${agent}"
+           style="border-radius:10px;width:52px;height:52px;object-fit:cover;"
+           onerror="this.style.display='none'">`
+      : '';
+    const agentName = agent ? `<span class="card-champ-name" style="color:var(--red)">${agent}</span>` : '';
+    const roleBlock = role
+      ? `<div class="card-role">
+           <img src="${ROLE_IMG[role]}" alt="${role}">
+           <span class="card-role-name">${role}</span>
+         </div>`
+      : '';
+    // grid: [agent?] [info] [role?]
+    const cols = [agent ? '52px' : null, '1fr', role ? '52px' : null].filter(Boolean).join(' ');
     return `<div class="player-card team-${color}">
-      <div class="card-body">
+      ${agent ? `<div class="card-bg" style="background-image:url('icon_agent/${agent}.png')"></div>` : ''}
+      <div class="card-body" style="grid-template-columns:${cols}">
+        ${agentImg}
         <div class="card-info">
+          ${agentName}
           <span class="card-player-name">${esc(p.name)}</span>
-          <div class="card-badges">${roleB}<span class="badge ${ri.cls}">${ri.label}</span></div>
+          <div class="card-badges"><span class="badge ${ri.cls}">${ri.label}</span></div>
         </div>
+        ${roleBlock}
       </div>
     </div>`;
   }).join('');

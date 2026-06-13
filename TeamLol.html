@@ -245,6 +245,90 @@
     .single-team { grid-column: 1 / -1; }
     .single-team .player-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
 
+
+    /* ── Role block (droite de la carte) ── */
+    .card-role {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 4px; flex-shrink: 0; padding: 0 4px;
+      min-width: 52px;
+    }
+    .card-role img {
+      width: 34px; height: 34px; object-fit: contain;
+      filter: drop-shadow(0 1px 4px rgba(0,0,0,0.5));
+    }
+    .card-role-name {
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-2); white-space: nowrap;
+    }
+
+
+    /* ── Cartes verticales mode Flex ── */
+    .flex-cards-grid {
+      grid-column: 1 / -1;
+      display: flex; gap: 12px; flex-wrap: nowrap; overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .flex-cards-grid::-webkit-scrollbar { height: 3px; }
+    .flex-cards-grid::-webkit-scrollbar-thumb { background: var(--border-h); border-radius: 10px; }
+
+    .player-card-v {
+      flex: 1; min-width: 180px; max-width: 260px;
+      border-radius: var(--r-lg); overflow: hidden;
+      background: var(--bg-3); border: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+    }
+    .player-card-v:hover { border-color: var(--border-h); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.5); }
+    .player-card-v::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 2;
+    }
+    .player-card-v.team-gold::before { background: linear-gradient(90deg, var(--gold), var(--gold-d)); }
+    .player-card-v.team-blue::before { background: linear-gradient(90deg, #4d8ef5, #2a5cc0); }
+    .player-card-v.team-red::before  { background: linear-gradient(90deg, #e05252, #a02828); }
+
+    /* Image champion pleine largeur */
+    .card-v-img-wrap {
+      width: 100%; aspect-ratio: 1 / 1; overflow: hidden;
+      background: var(--bg-4); position: relative;
+    }
+    .card-v-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top;
+      display: block; transition: transform 0.3s;
+    }
+    .player-card-v:hover .card-v-img-wrap img { transform: scale(1.04); }
+    .card-v-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-2); font-size: 40px; opacity: 0.3;
+    }
+
+    /* Infos en bas de la carte verticale */
+    .card-v-body {
+      padding: 10px 12px 12px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .card-v-champ {
+      font-size: 11px; font-weight: 700; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .card-v-player {
+      font-size: 17px; font-weight: 800; color: var(--text);
+      letter-spacing: -0.02em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .card-v-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 2px;
+    }
+    .card-v-role {
+      display: flex; align-items: center; gap: 5px;
+    }
+    .card-v-role img { width: 22px; height: 22px; object-fit: contain; }
+    .card-v-role-name { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-2); }
+
+    .teams-grid.mode-single { display: block !important; }
+
     /* ─── Media queries ─── */
     @media (max-width: 1100px) {
       .app { grid-template-columns: 270px 1fr 240px; }
@@ -398,6 +482,14 @@ const RANKS = [
 const ROLES    = ['Top', 'Jungle', 'Mid', 'ADC', 'Supp'];
 const ROLE_CLS = { Top:'role-top', Jungle:'role-jungle', Mid:'role-mid', ADC:'role-adc', Supp:'role-supp' };
 const ROLE_BADGE_CLS = { Top:'role-badge role-top', Jungle:'role-badge role-jungle', Mid:'role-badge role-mid', ADC:'role-badge role-adc', Supp:'role-badge role-supp' };
+
+const ROLE_IMG = {
+  Top:    'roles_lol/120px-Top_icon.webp',
+  Jungle: 'roles_lol/120px-Jungle_icon.webp',
+  Mid:    'roles_lol/120px-Middle_icon.webp',
+  ADC:    'roles_lol/120px-Bottom_icon.webp',
+  Supp:   'roles_lol/120px-Support_icon.webp',
+};
 const LS_KEY = 'lol_teammaker_saved_v1';
 const CHAMPIONS = ["Aatrox","Ahri","Akali","Akshan","Alistar","Ambessa","Amumu","Anivia","Annie","Aphelios","Ashe","AurelionSol","Aurora","Azir","Bard","Belveth","Blitzcrank","Brand","Braum","Briar","Caitlyn","Camille","Cassiopeia","Chogath","Corki","Darius","Diana","DrMundo","Draven","Ekko","Elise","Evelynn","Ezreal","Fiddlesticks","Fiora","Fizz","Galio","Gangplank","Garen","Gnar","Gragas","Graves","Gwen","Hecarim","Heimerdinger","Hwei","Illaoi","Irelia","Ivern","Janna","JarvanIV","Jax","Jayce","Jhin","Jinx","KSante","Kaisa","Kalista","Karma","Karthus","Kassadin","Katarina","Kayle","Kayn","Kennen","Khazix","Kindred","Kled","KogMaw","Leblanc","LeeSin","Leona","Lillia","Lissandra","Lucian","Lulu","Lux","Malphite","Malzahar","Maokai","MasterYi","Mel","Milio","MissFortune","MonkeyKing","Mordekaiser","Morgana","Naafiri","Nami","Nasus","Nautilus","Neeko","Nidalee","Nilah","Nocturne","Nunu","Olaf","Orianna","Ornn","Pantheon","Poppy","Pyke","Qiyana","Quinn","Rakan","Rammus","RekSai","Rell","Renata","Renekton","Rengar","Riven","Rumble","Ryze","Samira","Sejuani","Senna","Seraphine","Sett","Shaco","Shen","Shyvana","Singed","Sion","Sivir","Skarner","Smolder","Sona","Soraka","Swain","Sylas","Syndra","TahmKench","Taliyah","Talon","Taric","Teemo","Thresh","Tristana","Trundle","Tryndamere","TwistedFate","Twitch","Udyr","Urgot","Varus","Vayne","Veigar","Velkoz","Vex","Vi","Viego","Viktor","Vladimir","Volibear","Warwick","Xayah","Xerath","XinZhao","Yasuo","Yone","Yorick","Yunara","Yuumi","Zaahen","Zac","Zed","Zeri","Ziggs","Zilean","Zoe","Zyra"];
 
@@ -460,7 +552,75 @@ function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').re
 function rankOptions(sel) { return RANKS.map(r => `<option value="${r.value}"${r.value===sel?' selected':''}>${r.label}</option>`).join(''); }
 function shuffle(a) { const b=[...a]; for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]; } return b; }
 function popcount(n) { let c=0; while(n){ c+=n&1; n>>=1; } return c; }
+
+const CHAMPS_BY_ROLE = {
+  Top: [
+    "Aatrox","Ambessa","Camille","Chogath","Darius","DrMundo","Fiora",
+    "Gangplank","Garen","Gnar","Gwen","Illaoi","Irelia","Jax","Jayce",
+    "KSante","Kayle","Kennen","Kled","Malphite","Maokai","Mordekaiser",
+    "Nasus","Olaf","Ornn","Pantheon","Poppy","Quinn","Renekton",
+    "Riven","Rumble","Sett","Shen","Singed","Sion","Teemo","Trundle",
+    "Tryndamere","Urgot","Vayne","Volibear","Warwick","Yorick",
+    "Yone","Yasuo","Gragas","ChoGath"
+  ],
+
+  Jungle: [
+    "Amumu","Belveth","Briar","Diana","Ekko","Elise","Evelynn",
+    "Fiddlesticks","Gragas","Graves","Hecarim","Ivern","JarvanIV",
+    "Kayn","Khazix","Kindred","LeeSin","Lillia","MasterYi",
+    "MonkeyKing","Nidalee","Nocturne","Nunu","Rammus","RekSai",
+    "Rengar","Sejuani","Shaco","Shyvana","Skarner","Taliyah",
+    "Trundle","Udyr","Vi","Viego","Volibear","Warwick","XinZhao",
+    "Zac","Kled","Poppy","Pantheon","Maokai","Morgana","Brand",
+    "Taliyah","Nautilus"
+  ],
+
+  Mid: [
+    "Ahri","Akali","Akshan","Anivia","Annie","AurelionSol","Aurora",
+    "Azir","Cassiopeia","Corki","Diana","Ekko","Fizz","Galio",
+    "Hwei","Irelia","Kassadin","Katarina","LeBlanc","Lissandra",
+    "Lux","Malzahar","Mel","Naafiri","Neeko","Orianna","Pantheon",
+    "Qiyana","Ryze","Sylas","Syndra","Talon","TwistedFate",
+    "Veigar","Vex","Viktor","Vladimir","Yasuo","Yone","Zed",
+    "Ziggs","Zoe","Brand","Taliyah","Velkoz","Xerath",
+    "Swain","Seraphine","Karma"
+  ],
+
+  ADC: [
+    "Aphelios","Ashe","Caitlyn","Corki","Draven","Ezreal","Jhin",
+    "Jinx","Kaisa","Kalista","KogMaw","Lucian","MissFortune",
+    "Nilah","Samira","Senna","Sivir","Smolder","Tristana",
+    "Twitch","Varus","Vayne","Xayah","Yunara","Zeri",
+    "Seraphine","Swain","Karthus"
+  ],
+
+  Supp: [
+    "Alistar","Bard","Blitzcrank","Brand","Braum","Janna",
+    "Karma","Leona","Lulu","Lux","Milio","Morgana","Nami",
+    "Nautilus","Pyke","Rakan","Rell","Renata","Seraphine",
+    "Senna","Sona","Soraka","Swain","TahmKench","Taric",
+    "Thresh","Velkoz","Xerath","Yuumi","Zyra","Zilean",
+    "Galio","Shaco","Maokai","Poppy","Fiddlesticks",
+    "Nautilus","Heimerdinger"
+  ]
+};
+
+function pickChampForRole(role, usedChamps) {
+  const pool = (CHAMPS_BY_ROLE[role] || CHAMPIONS).filter(c => !usedChamps.has(c));
+  // si pool vide (tous déjà pris), fallback sur CHAMPIONS entier
+  const fallback = pool.length > 0 ? pool : CHAMPIONS.filter(c => !usedChamps.has(c));
+  const pick = fallback[Math.floor(Math.random() * fallback.length)];
+  usedChamps.add(pick);
+  return pick;
+}
+
+function pickChampsForRoles(roles) {
+  const used = new Set();
+  return roles.map(role => pickChampForRole(role, used));
+}
+
 function pickChampions(count) { return shuffle([...CHAMPIONS]).slice(0,count); }
+
 
 /* ─── Players ─── */
 function addPlayer(name='', rank=3) {
@@ -612,14 +772,14 @@ function generate() {
     if (valid.length > 5) return showError('Maximum 5 joueurs en mode Flex.');
     if (useRoles && valid.length !== 5) return showError('Les rôles nécessitent 5 joueurs.');
     const roles = useRoles ? shuffle(ROLES) : null;
-    const champs = useChamps ? pickChampions(valid.length) : null;
+    const champs = useChamps ? (roles ? pickChampsForRoles(roles) : pickChampions(valid.length)) : null;
     const score = valid.reduce((a,p)=>a+parseInt(p.rank),0);
     lastT1=valid; lastT2=[]; lastS1=score; lastS2=0;
     lastRoles1=roles; lastRoles2=null; lastChamps1=champs; lastChamps2=null;
     const name=document.getElementById('sessionName').value.trim();
     document.getElementById('sessionTitle').textContent = name ? `🎮 ${name}` : 'Ton équipe Flex';
-    document.getElementById('teamsGrid').innerHTML =
-      `<div class="single-team">${buildTeamSection('⚔️ Ton équipe', valid, score, roles, champs, 'gold')}</div>`;
+    document.getElementById('teamsGrid').className = 'teams-grid mode-single';
+    document.getElementById('teamsGrid').innerHTML = buildFlexCards('⚔️ Ton équipe', valid, roles, champs, 'gold');
     document.getElementById('diffRow').innerHTML = '';
   } else {
     if (valid.length < 2) return showError('Ajoute au moins 2 joueurs.');
@@ -628,12 +788,21 @@ function generate() {
     const [t1,t2,diff,combos]=bestSplit(valid.map(p=>({...p,rank:parseInt(p.rank)})));
     const roles1=useRoles?shuffle(ROLES):null, roles2=useRoles?shuffle(ROLES):null;
     let champs1=null, champs2=null;
-    if (useChamps) { const pick=pickChampions(t1.length+t2.length); champs1=pick.slice(0,t1.length); champs2=pick.slice(t1.length); }
+    if (useChamps) {
+      if (roles1) {
+        const used = new Set();
+        champs1 = roles1.map(r => pickChampForRole(r, used));
+        champs2 = roles2.map(r => pickChampForRole(r, used));
+      } else {
+        const pick=pickChampions(t1.length+t2.length); champs1=pick.slice(0,t1.length); champs2=pick.slice(t1.length);
+      }
+    }
     const name=document.getElementById('sessionName').value.trim();
     document.getElementById('sessionTitle').textContent = name ? `🎮 ${name}` : 'Résultat';
     const s1=t1.reduce((a,p)=>a+p.rank,0), s2=t2.reduce((a,p)=>a+p.rank,0);
     lastT1=t1; lastT2=t2; lastS1=s1; lastS2=s2;
     lastRoles1=roles1; lastRoles2=roles2; lastChamps1=champs1; lastChamps2=champs2;
+    document.getElementById('teamsGrid').className = 'teams-grid';
     document.getElementById('teamsGrid').innerHTML =
       buildTeamSection('🔵 Équipe 1',t1,s1,roles1,champs1,'blue') +
       buildTeamSection('🔴 Équipe 2',t2,s2,roles2,champs2,'red');
@@ -652,10 +821,12 @@ function rerollRoles() {
   if(!lastT1.length) return;
   if(currentMode==='flex') {
     lastRoles1=shuffle(ROLES);
-    document.getElementById('teamsGrid').innerHTML =
-      `<div class="single-team">${buildTeamSection('⚔️ Ton équipe',lastT1,lastS1,lastRoles1,lastChamps1,'gold')}</div>`;
+    if(lastChamps1) lastChamps1 = pickChampsForRoles(lastRoles1); // synchro champions/roles
+    document.getElementById('teamsGrid').className = 'teams-grid mode-single';
+    document.getElementById('teamsGrid').innerHTML = buildFlexCards('⚔️ Ton équipe',lastT1,lastRoles1,lastChamps1,'gold');
   } else {
     lastRoles1=shuffle(ROLES); lastRoles2=shuffle(ROLES);
+    document.getElementById('teamsGrid').className = 'teams-grid';
     document.getElementById('teamsGrid').innerHTML =
       buildTeamSection('🔵 Équipe 1',lastT1,lastS1,lastRoles1,lastChamps1,'blue')+
       buildTeamSection('🔴 Équipe 2',lastT2,lastS2,lastRoles2,lastChamps2,'red');
@@ -664,12 +835,20 @@ function rerollRoles() {
 function rerollChampions() {
   if(!lastT1.length) return;
   if(currentMode==='flex') {
-    lastChamps1=pickChampions(lastT1.length);
+    lastChamps1 = lastRoles1 ? pickChampsForRoles(lastRoles1) : pickChampions(lastT1.length);
+    document.getElementById('teamsGrid').className = 'teams-grid mode-single';
     document.getElementById('teamsGrid').innerHTML =
-      `<div class="single-team">${buildTeamSection('⚔️ Ton équipe',lastT1,lastS1,lastRoles1,lastChamps1,'gold')}</div>`;
+      buildFlexCards('⚔️ Ton équipe',lastT1,lastRoles1,lastChamps1,'gold');
   } else {
-    const pick=pickChampions(lastT1.length+lastT2.length);
-    lastChamps1=pick.slice(0,lastT1.length); lastChamps2=pick.slice(lastT1.length);
+    if (lastRoles1) {
+      const used = new Set();
+      lastChamps1 = lastRoles1.map(r => pickChampForRole(r, used));
+      lastChamps2 = lastRoles2.map(r => pickChampForRole(r, used));
+    } else {
+      const pick=pickChampions(lastT1.length+lastT2.length);
+      lastChamps1=pick.slice(0,lastT1.length); lastChamps2=pick.slice(lastT1.length);
+    }
+    document.getElementById('teamsGrid').className = 'teams-grid';
     document.getElementById('teamsGrid').innerHTML =
       buildTeamSection('🔵 Équipe 1',lastT1,lastS1,lastRoles1,lastChamps1,'blue')+
       buildTeamSection('🔴 Équipe 2',lastT2,lastS2,lastRoles2,lastChamps2,'red');
@@ -677,6 +856,39 @@ function rerollChampions() {
 }
 
 function showError(msg) { const el=document.getElementById('errorMsg'); el.textContent=msg; el.style.display='block'; }
+
+
+/* ─── Build flex cards (layout vertical) ─── */
+function buildFlexCards(title, players, roles, champs, color) {
+  const score = players.reduce((a,p)=>a+parseInt(p.rank),0);
+  const avg = rankInfo(Math.round(score/players.length));
+  const cards = players.map((p,i) => {
+    const ri = rankInfo(p.rank);
+    const champ = champs ? champs[i] : null;
+    const role  = roles  ? roles[i]  : null;
+    const imgHtml = champ
+      ? `<img src="icon_champion/${champ}_0.jpg" alt="${champ}" onerror="this.parentElement.innerHTML='<div class=card-v-img-placeholder><i class=ti ti-user></i></div>'">`
+      : `<div class="card-v-img-placeholder"><i class="ti ti-user"></i></div>`;
+    const champName = champ ? `<div class="card-v-champ">${champ}</div>` : '';
+    const roleHtml = role
+      ? `<div class="card-v-role"><img src="${ROLE_IMG[role]}" alt="${role}"><span class="card-v-role-name">${role}</span></div>`
+      : '';
+    return `<div class="player-card-v team-${color}">
+      <div class="card-v-img-wrap">${imgHtml}</div>
+      <div class="card-v-body">
+        ${champName}
+        <div class="card-v-player">${esc(p.name)}</div>
+        <div class="card-v-footer">
+          ${roleHtml}
+          <span class="badge ${ri.cls}">${ri.label}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  return `<div class="flex-cards-grid">
+    ${cards}
+  </div>`;
+}
 
 /* ─── Build team section ─── */
 function buildTeamSection(title, players, score, roles, champs, color) {
@@ -690,17 +902,24 @@ function buildTeamSection(title, players, score, roles, champs, color) {
       ? `<img class="card-champ-img" src="icon_champion/${champ}_0.jpg" alt="${champ}" onerror="this.style.display='none'">`
       : '';
     const champName = champ ? `<span class="card-champ-name">${champ}</span>` : '';
-    const roleB = role ? `<span class="badge ${ROLE_BADGE_CLS[role]}">${role}</span>` : '';
-    const bodyGrid = champ ? 'grid-template-columns:52px 1fr' : 'grid-template-columns:1fr';
+    const roleBlock = role
+      ? `<div class="card-role">
+           <img src="${ROLE_IMG[role]}" alt="${role}">
+           <span class="card-role-name">${role}</span>
+         </div>`
+      : '';
+    // grid: [champ?] [info] [role?]
+    const cols = [champ ? '52px' : null, '1fr', role ? '52px' : null].filter(Boolean).join(' ');
     return `<div class="player-card team-${color}">
       <div class="card-bg" ${bg}></div>
-      <div class="card-body" style="${bodyGrid}">
+      <div class="card-body" style="grid-template-columns:${cols}">
         ${champImg}
         <div class="card-info">
           ${champName}
           <span class="card-player-name">${esc(p.name)}</span>
-          <div class="card-badges">${roleB}<span class="badge ${ri.cls}">${ri.label}</span></div>
+          <div class="card-badges"><span class="badge ${ri.cls}">${ri.label}</span></div>
         </div>
+        ${roleBlock}
       </div>
     </div>`;
   }).join('');
