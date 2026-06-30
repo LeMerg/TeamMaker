@@ -527,7 +527,7 @@
 
       <div class="storage-status">
         <span class="storage-dot" id="storageDot"></span>
-        <span id="storageLabel" data-i18n="loading">Chargement…</span>
+        <span id="storageLabel">Chargement…</span>
       </div>
 
       <div class="search-wrap">
@@ -564,7 +564,7 @@
 const I18N = {
   fr: {
     brandSub: "Valorant",
-    players: "Joueurs", addPlayer: "Ajouter un joueur",
+    players: "Joueurs", addPlayer: "Ajouter un joueur", team: "Équipe",
     randomRoles: "Rôles aléatoires",
     randomAgents: "Agents aléatoires", agentsSub: "1 agent unique par rôle · aucun doublon",
     generateTeams: "Générer les équipes",
@@ -587,7 +587,7 @@ const I18N = {
   },
   en: {
     brandSub: "Valorant",
-    players: "Players", addPlayer: "Add a player",
+    players: "Players", addPlayer: "Add a player", team: "Team",
     randomRoles: "Random roles",
     randomAgents: "Random agents", agentsSub: "1 unique agent per role · no duplicates",
     generateTeams: "Generate teams",
@@ -624,6 +624,8 @@ function setLang(lang) {
   document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.getAttribute('data-i18n-title')); });
   document.querySelector('.brand-sub').textContent = t('brandSub');
   if (typeof updateRolesToggleVisibility === 'function') updateRolesToggleVisibility();
+  if (typeof renderGrid === 'function') renderGrid();
+  if (typeof updateStorageStatus === 'function') updateStorageStatus();
   if (typeof renderSaved === 'function') renderSaved();
   if (typeof renderResult === 'function' && lastT1 && lastT1.length) renderResult();
 }
@@ -641,6 +643,14 @@ const RANKS = [
   { label: 'Radiant',   value: 10, cls: 'rank-radiant' },
 ];
 window.PAGE_RANKS = RANKS;
+const RANK_LABEL_EN = {
+  'Débutant': 'Unranked', 'Iron': 'Iron', 'Bronze': 'Bronze', 'Silver': 'Silver',
+  'Gold': 'Gold', 'Platine': 'Platinum', 'Diamant': 'Diamond', 'Ascendant': 'Ascendant',
+  'Immortal': 'Immortal', 'Radiant': 'Radiant',
+};
+window.translateRankLabel = function (label) {
+  return CUR_LANG === 'en' ? (RANK_LABEL_EN[label] || label) : label;
+};
 window.PAGE_RANK_IMG = {
   'Débutant':  'icon_rank_lol/Unranked.webp',
   'Iron':      'img_rank_valo/Iron_2_Rank.png',
@@ -1138,8 +1148,8 @@ function generate() {
     lastRoles1=roles1; lastRoles2=roles2; lastAgents1=agents1; lastAgents2=agents2;
     document.getElementById('teamsGrid').className = 'teams-grid';
     document.getElementById('teamsGrid').innerHTML =
-      buildTeamSection('🔵 Équipe 1',t1,s1,roles1,agents1,'blue','team1')+
-      buildTeamSection('🔴 Équipe 2',t2,s2,roles2,agents2,'red','team2');
+      buildTeamSection(`🔵 ${t('team')} 1`,t1,s1,roles1,agents1,'blue','team1')+
+      buildTeamSection(`🔴 ${t('team')} 2`,t2,s2,roles2,agents2,'red','team2');
     const ctxt=combos>1?` · ${combos} ${t('combosLabel')}`:'';
     document.getElementById('diffRow').innerHTML = `${t('diffLabel')} : <strong>${diff} ${t('pts')}</strong>${ctxt}`;
   }
@@ -1167,8 +1177,8 @@ function rerollRoles() {
     }
     document.getElementById('teamsGrid').className = 'teams-grid';
     document.getElementById('teamsGrid').innerHTML =
-      buildTeamSection('🔵 Équipe 1',lastT1,lastS1,lastRoles1,lastAgents1,'blue','team1')+
-      buildTeamSection('🔴 Équipe 2',lastT2,lastS2,lastRoles2,lastAgents2,'red','team2');
+      buildTeamSection(`🔵 ${t('team')} 1`,lastT1,lastS1,lastRoles1,lastAgents1,'blue','team1')+
+      buildTeamSection(`🔴 ${t('team')} 2`,lastT2,lastS2,lastRoles2,lastAgents2,'red','team2');
   }
 }
 
@@ -1189,8 +1199,8 @@ function rerollAgents() {
     }
     document.getElementById('teamsGrid').className = 'teams-grid';
     document.getElementById('teamsGrid').innerHTML =
-      buildTeamSection('🔵 Équipe 1',lastT1,lastS1,lastRoles1,lastAgents1,'blue','team1')+
-      buildTeamSection('🔴 Équipe 2',lastT2,lastS2,lastRoles2,lastAgents2,'red','team2');
+      buildTeamSection(`🔵 ${t('team')} 1`,lastT1,lastS1,lastRoles1,lastAgents1,'blue','team1')+
+      buildTeamSection(`🔴 ${t('team')} 2`,lastT2,lastS2,lastRoles2,lastAgents2,'red','team2');
   }
 }
 
@@ -1282,7 +1292,7 @@ function buildTeamSection(title, players, score, roles, agents, color, side) {
   return `<div class="team-section">
     <div class="team-hd">
       <span class="team-title ${color}">${title}</span>
-      <span class="team-score-lbl">${score} ${t('pts')} · ${t('avg')} ${avg.label}</span>
+      <span class="team-score-lbl">${score} ${t('pts')} · ${t('avg')} ${translateRankLabel(avg.label)}</span>
     </div>
     <div class="player-cards">${cards}</div>
   </div>`;
@@ -1310,8 +1320,8 @@ function rerollSinglePlayer(side, idx) {
     document.getElementById('teamsGrid').innerHTML = buildFiveStackCards('⚔️ Ton équipe', lastT1, lastRoles1, lastAgents1, 'gold');
   } else {
     document.getElementById('teamsGrid').innerHTML =
-      buildTeamSection('🔵 Équipe 1', lastT1, lastS1, lastRoles1, lastAgents1, 'blue', 'team1') +
-      buildTeamSection('🔴 Équipe 2', lastT2, lastS2, lastRoles2, lastAgents2, 'red', 'team2');
+      buildTeamSection(`🔵 ${t('team')} 1`, lastT1, lastS1, lastRoles1, lastAgents1, 'blue', 'team1') +
+      buildTeamSection(`🔴 ${t('team')} 2`, lastT2, lastS2, lastRoles2, lastAgents2, 'red', 'team2');
   }
 }
 

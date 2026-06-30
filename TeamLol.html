@@ -608,7 +608,7 @@
 
       <div class="storage-status">
         <span class="storage-dot" id="storageDot"></span>
-        <span id="storageLabel" data-i18n="loading">Chargement…</span>
+        <span id="storageLabel">Chargement…</span>
       </div>
 
       <div class="search-wrap">
@@ -645,7 +645,7 @@
 const I18N = {
   fr: {
     brandSub: "League of Legends",
-    players: "Joueurs", addPlayer: "Ajouter un joueur",
+    players: "Joueurs", addPlayer: "Ajouter un joueur", team: "Équipe",
     randomRoles: "Rôles aléatoires", rolesSub: "Top · Jungle · Mid · ADC · Supp",
     randomChamps: "Champions aléatoires", champsSub: "Un champion unique par joueur",
     braveryMode: "Mode Téméraire", braverySub: "Runes + build imposés au hasard",
@@ -669,7 +669,7 @@ const I18N = {
   },
   en: {
     brandSub: "League of Legends",
-    players: "Players", addPlayer: "Add a player",
+    players: "Players", addPlayer: "Add a player", team: "Team",
     randomRoles: "Random roles", rolesSub: "Top · Jungle · Mid · ADC · Supp",
     randomChamps: "Random champions", champsSub: "One unique champion per player",
     braveryMode: "Bravery Mode", braverySub: "Random runes + build imposed",
@@ -707,6 +707,8 @@ function setLang(lang) {
   document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.getAttribute('data-i18n-title')); });
   document.querySelector('.brand-sub').textContent = t('brandSub');
   if (typeof updateRolesLockForBravery === 'function') updateRolesLockForBravery();
+  if (typeof renderGrid === 'function') renderGrid();
+  if (typeof updateStorageStatus === 'function') updateStorageStatus();
   if (typeof renderSaved === 'function') renderSaved();
   if (typeof renderResult === 'function' && lastT1 && lastT1.length) renderResult();
 }
@@ -725,6 +727,14 @@ const RANKS = [
   { label: 'Challenger',  value: 10, cls: 'rank-challenger' },
 ];
 window.PAGE_RANKS = RANKS;
+const RANK_LABEL_EN = {
+  'Débutant': 'Unranked', 'Iron': 'Iron', 'Bronze': 'Bronze', 'Silver': 'Silver',
+  'Gold': 'Gold', 'Platine': 'Platinum', 'Emeraude': 'Emerald', 'Diamant': 'Diamond',
+  'Master': 'Master', 'Grandmaster': 'Grandmaster', 'Challenger': 'Challenger',
+};
+window.translateRankLabel = function (label) {
+  return CUR_LANG === 'en' ? (RANK_LABEL_EN[label] || label) : label;
+};
 window.PAGE_RANK_IMG = {
   'Débutant':    'icon_rank_lol/Unranked.webp',
   'Iron':        'icon_rank_lol/Iron.webp',
@@ -1264,7 +1274,7 @@ function buildBraveryTeamSection(title, players, score, champs, braveryArr, colo
   const header = title
     ? (() => {
         const avg = rankInfo(Math.round(score/players.length));
-        return `<div class="team-hd"><span class="team-title ${color}">${title}</span><span class="team-score-lbl">${score} ${t('pts')} · ${t('avg')} ${avg.label}</span></div>`;
+        return `<div class="team-hd"><span class="team-title ${color}">${title}</span><span class="team-score-lbl">${score} ${t('pts')} · ${t('avg')} ${translateRankLabel(avg.label)}</span></div>`;
       })()
     : '';
   return `<div class="team-section">${header}<div class="bravery-grid">${cards}</div></div>`;
@@ -1283,10 +1293,10 @@ function renderResult() {
   } else {
     document.getElementById('teamsGrid').className = braveryOn ? 'teams-grid bravery-active' : 'teams-grid';
     document.getElementById('teamsGrid').innerHTML = braveryOn
-      ? buildBraveryTeamSection('🔵 Équipe 1', lastT1, lastS1, lastChamps1, lastBravery1, 'blue', 'team1', lastRoles1) +
-        buildBraveryTeamSection('🔴 Équipe 2', lastT2, lastS2, lastChamps2, lastBravery2, 'red', 'team2', lastRoles2)
-      : buildTeamSection('🔵 Équipe 1', lastT1, lastS1, lastRoles1, lastChamps1, 'blue', 'team1') +
-        buildTeamSection('🔴 Équipe 2', lastT2, lastS2, lastRoles2, lastChamps2, 'red', 'team2');
+      ? buildBraveryTeamSection(`🔵 ${t('team')} 1`, lastT1, lastS1, lastChamps1, lastBravery1, 'blue', 'team1', lastRoles1) +
+        buildBraveryTeamSection(`🔴 ${t('team')} 2`, lastT2, lastS2, lastChamps2, lastBravery2, 'red', 'team2', lastRoles2)
+      : buildTeamSection(`🔵 ${t('team')} 1`, lastT1, lastS1, lastRoles1, lastChamps1, 'blue', 'team1') +
+        buildTeamSection(`🔴 ${t('team')} 2`, lastT2, lastS2, lastRoles2, lastChamps2, 'red', 'team2');
   }
 }
 
@@ -1759,7 +1769,7 @@ function buildTeamSection(title, players, score, roles, champs, color, side) {
   return `<div class="team-section">
     <div class="team-hd">
       <span class="team-title ${color}">${title}</span>
-      <span class="team-score-lbl">${score} ${t('pts')} · ${t('avg')} ${avg.label}</span>
+      <span class="team-score-lbl">${score} ${t('pts')} · ${t('avg')} ${translateRankLabel(avg.label)}</span>
     </div>
     <div class="player-cards">${cards}</div>
   </div>`;
